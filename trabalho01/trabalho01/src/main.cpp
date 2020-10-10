@@ -32,22 +32,30 @@ int main()
     fooVazao(vazao2);
 
     //###################################### CORRENTE E TENSAO ##################################
+    // Sempre que for ler dados de corrente ou tensao, é preciso enviar dois indices. Por padrao inicializei 0 e 1, mas o usuario que escolhe.
+    // Estes indices representam o intervalo para gerar o vetor com os dados a serem utilizados nas funçoes de RMS, potencia, energia, etc
+    // A função de ler dados sempre vai gerar um vetor com todos os dados do .dat e um vetor com o intervalo desejado (dadosSalvos)
+
+    int indice1 = 0;
+    int indice2 = 1;
+
     vector<string> headersSensores = {"Nome do Sensor", "ID do sensor", "Frequencia da rede", "Numero de amostras por segundo", "Horario inicio da coleta", "Total de Amostras"};
     
     SensorCorrente corrente1("C:\\Users\\melis\\Desktop\\GitDesk\\_trabalho01\\trabalho01\\dados\\SensorCorrente1.dat", headersSensores);
-    corrente1.lerDados();
+    corrente1.lerDados(indice1, indice2);
+    //corrente1.imprimeDadosSalvos();
 
     SensorCorrente corrente2("C:\\Users\\melis\\Desktop\\GitDesk\\_trabalho01\\trabalho01\\dados\\SensorCorrente2.dat", headersSensores);
-    corrente2.lerDados();
+    corrente2.lerDados(indice1, indice2);
     
     fooCorrente(corrente1);
     fooCorrente(corrente2);
     
     SensorCorrente tensao1("C:\\Users\\melis\\Desktop\\GitDesk\\_trabalho01\\trabalho01\\dados\\SensorTensao1.dat", headersSensores);
-    tensao1.lerDados();
+    tensao1.lerDados(indice1, indice2);
 
     SensorCorrente tensao2("C:\\Users\\melis\\Desktop\\GitDesk\\_trabalho01\\trabalho01\\dados\\SensorTensao2.dat", headersSensores);
-    tensao2.lerDados();
+    tensao2.lerDados(indice1, indice2);
     
     fooCorrente(tensao1);
     fooCorrente(tensao2);

@@ -11,6 +11,7 @@ class SensorCorrente
 {
 private:
     vector<Medicao> dados;
+    vector<Medicao> dadosSalvos;
     vector<string> headers;
     string nome;
     string id;
@@ -26,8 +27,9 @@ public:
     SensorCorrente(const string&, vector<string>&);
     ~SensorCorrente();
     virtual bool abrirArquivo(const string&);
-    virtual bool lerDados();
+    virtual bool lerDados(const int&, const int&);
     virtual void imprimeDados();
+    virtual void imprimeDadosSalvos();
     virtual void confirmaLeitura();
     virtual void imprimeHeaders();
     virtual string getNome();
@@ -39,8 +41,6 @@ public:
     virtual string getFreq();
     virtual int getNumAmostrasCiclo();
     virtual double getDado(const int&);
-    //virtual int salvarDados(const string&, const string&, const string&);
-    //sensor de tensao e corrente precisa salvar dados do zero ate o indice desejado pros calculos nas bombas
 };
 
 #endif

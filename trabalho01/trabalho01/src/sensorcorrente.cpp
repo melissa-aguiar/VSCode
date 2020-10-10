@@ -40,7 +40,7 @@ bool SensorCorrente::abrirArquivo(const string &path)
     return false;
 }
 
-bool SensorCorrente::lerDados()
+bool SensorCorrente::lerDados(const int &indice1, const int &indice2)
 {
     try
     {
@@ -74,7 +74,7 @@ bool SensorCorrente::lerDados()
             this->horarioInicial = dadosHeader[4];
             this->Ts = (int)stod(dadosHeader[3]);
 
-            Medicao m;
+            Medicao m, ms;
             getline(file, d);
 
             for (int i = 0; i < this->numMed; i++)
@@ -83,6 +83,12 @@ bool SensorCorrente::lerDados()
                 m.valor = stod(d);
                 this->dados.push_back(m);
             }
+            for (int i = indice1; i < indice2; i++)
+            {
+                this->dadosSalvos.push_back(this->dados[i]);
+                //this->dadosSalvos é o que vai entrar nas funçoes que precisam de um intervalo de dados escolhido pelo usuario
+            }
+
         }
         else
         {
@@ -104,7 +110,7 @@ void SensorCorrente::confirmaLeitura()
 
 void SensorCorrente::imprimeHeaders()
 {
-    cout << "###############################"<< endl;
+    cout << "###############################" << endl;
     cout << "Nome do Sensor: " << this->getNome() << endl;
     cout << "ID do sensor: " << this->getId() << endl;
     cout << "Frequencia da rede: " << this->getFreq() << endl;
@@ -115,19 +121,19 @@ void SensorCorrente::imprimeHeaders()
 
 void SensorCorrente::imprimeDados()
 {
-    cout << "Sensor de corrente" << endl;
-    cout << "Nome do Sensor: " << this->getNome() << endl;
-    cout << "ID do sensor: " << this->getId() << endl;
-    cout << "Frequencia da rede: " << this->getFreq() << endl;
-    cout << "Total de amostras: " << this->getNumMed() << endl;
-    cout << "Horario inicio da coleta: " << this->getHorarioInicial() << endl;
-    cout << "Periodo de amostragem (s): " << this->getPeriodoAmostragem() << endl;
-
     for (auto it = this->dados.begin(); it != this->dados.end(); ++it)
     { //iterador it funciona como um ponteiro, ele é um numero qualquer que armazena um endereço de memoria
         //podendo ser somado ou subtraido, neste caso ele vai ir do primeiro endereço de memoria ao ultimo
         //a vantagem é que podemos usar o it  como uma referencia para cada um dos dados
         //quando definimos uma variavel como o retorno de um metodo, o proprio operador "auto" vai definir o tipo da variavel
+        cout << " Valor: " << it->valor << endl;
+    }
+}
+
+void SensorCorrente::imprimeDadosSalvos()
+{
+    for (auto it = this->dadosSalvos.begin(); it != this->dadosSalvos.end(); ++it)
+    { 
         cout << " Valor: " << it->valor << endl;
     }
 }
@@ -183,3 +189,4 @@ double SensorCorrente::getDado(const int &indice)
     }
     return false;
 }
+
