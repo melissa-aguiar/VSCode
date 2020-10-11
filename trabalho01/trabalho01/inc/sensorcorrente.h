@@ -13,6 +13,7 @@ private:
     vector<Medicao> dados;
     vector<Medicao> dadosSalvos;
     vector<string> headers;
+    vector<double> dadosRMS;
     string nome;
     string id;
     string horarioInicial;
@@ -22,6 +23,7 @@ private:
     int N;
     int totAmostras;
     double volume;
+    double rms;
     ifstream file;
 public:
     SensorCorrente(const string&, vector<string>&);
@@ -40,7 +42,7 @@ public:
     virtual string getFreq();
     virtual int getNumAmostrasCiclo();
     virtual double getDado(const int&);
-    virtual bool getDadosSalvos(const int&, const int&);
+    virtual double getValorRMSeDadosSalvos(const int&, const int&);
 };
 
 #endif

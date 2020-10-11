@@ -38,7 +38,7 @@ int main()
     // funçao de calculo RMS deve ser adicionada no sensorcorrente .cpp e .h
 
     int indice1 = 0;
-    int indice2 = 1;
+    int indice2 = 20;
 
     vector<string> headersSensores = {"Nome do Sensor", "ID do sensor", "Frequencia da rede", "Numero de amostras por segundo", "Horario inicio da coleta", "Total de Amostras"};
     
@@ -47,7 +47,9 @@ int main()
     
     fooCorrente(corrente1);
     fooCorrente(corrente2);
-    corrente1.getDadosSalvos(indice1, indice2);
+    double rms = corrente1.getValorRMSeDadosSalvos(indice1, indice2);
+
+    cout << "valor rms: " << rms;
     
     SensorCorrente tensao1("C:\\Users\\melis\\Desktop\\GitDesk\\_trabalho01\\trabalho01\\dados\\SensorTensao1.dat", headersSensores);
     SensorCorrente tensao2("C:\\Users\\melis\\Desktop\\GitDesk\\_trabalho01\\trabalho01\\dados\\SensorTensao2.dat", headersSensores);

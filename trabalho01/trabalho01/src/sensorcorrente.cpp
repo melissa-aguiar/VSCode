@@ -2,6 +2,8 @@
 #include <fstream>
 #include <iostream>
 #include <string.h>
+#include<math.h>
+#include <cstring>
 
 using namespace std;
 
@@ -16,6 +18,7 @@ SensorCorrente::SensorCorrente(const string &path, vector<string> &h) //caminho 
     this->N = 600 / 60;
     this->totAmostras = 0;
     this->volume = 0;
+    this->rms = 0;
     this->headers.assign(h.begin(), h.end());
     //assign copia os dados de um vetor pro outro no intervalo desejado, neste caso copia h todo
     abrirArquivo(path);
@@ -176,18 +179,31 @@ double SensorCorrente::getDado(const int &indice)
     return false;
 }
 
-bool SensorCorrente::getDadosSalvos(const int &indice1, const int &indice2)
+double SensorCorrente::getValorRMSeDadosSalvos(const int &indice1, const int &indice2)
 {
     for (int i = indice1; i <= indice2; i++)
     {
         this->dadosSalvos.push_back(this->dados[i]);
-        //this->dadosSalvos é o que vai entrar nas funçoes que precisam de um intervalo de dados escolhido pelo usuario
+        //this->dadosSalvos é o que vetor com os dados no intervalo desejado
     }
+    
+    double x2=0;									// Vari?vel que armazena o valor RMS e que armazena o valor RMS� (x2 = RMS�)
+	double xo;											// Vari?vel que armazena a amostra a ser descartada
+	double *const bufferCalculo = new double [N];		// Vetor que ir? armazenar os dados de 1 ciclo da onda (Aloca��o din�mica)
+	double *ptr_bufferCalculo = bufferCalculo;			// ponteiro que ser? utilizado para varrer os dados
+	memset(bufferCalculo, 0 , N*sizeof(double));		// Limpa os valores do vetor
+	
+	for (int i = 0; i < indice2;++i)
+	{
+		xo = *ptr_bufferCalculo;						//Ao inserir uma nova amostra no vetor, retira a amostra mais antiga e armazena-a em xo
+		*ptr_bufferCalculo = (this->dadosSalvos[i].valor)*(this->dadosSalvos[i].valor);					//Armazena o novo valor no vetor (x�)
+		x2 += (*ptr_bufferCalculo - xo)/N;				//Soma a contribui??o
+	}
 
-    //for (auto it = this->dadosSalvos.begin(); it != this->dadosSalvos.end(); ++it)
-    //{
-    //    cout << " Valor: " << it->valor << endl;
-    //}
+	delete[] bufferCalculo;							  //Desalocando bloco de mem?ria alocado
+	this->rms = sqrt(x2);									  // Calcula a raiz quadrada de RMS� = RMS
 
-    return true;
+    //cout << " Valor RMS: " << this->rms << endl;
+
+    return this->rms;
 }
