@@ -27,9 +27,8 @@ public:
     SensorCorrente(const string&, vector<string>&);
     ~SensorCorrente();
     virtual bool abrirArquivo(const string&);
-    virtual bool lerDados(const int&, const int&);
+    virtual bool lerDados();
     virtual void imprimeDados();
-    virtual void imprimeDadosSalvos();
     virtual void confirmaLeitura();
     virtual void imprimeHeaders();
     virtual string getNome();
@@ -41,6 +40,7 @@ public:
     virtual string getFreq();
     virtual int getNumAmostrasCiclo();
     virtual double getDado(const int&);
+    virtual bool getDadosSalvos(const int&, const int&);
 };
 
 #endif

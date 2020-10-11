@@ -40,7 +40,7 @@ bool SensorCorrente::abrirArquivo(const string &path)
     return false;
 }
 
-bool SensorCorrente::lerDados(const int &indice1, const int &indice2)
+bool SensorCorrente::lerDados()
 {
     try
     {
@@ -83,12 +83,6 @@ bool SensorCorrente::lerDados(const int &indice1, const int &indice2)
                 m.valor = stod(d);
                 this->dados.push_back(m);
             }
-            for (int i = indice1; i < indice2; i++)
-            {
-                this->dadosSalvos.push_back(this->dados[i]);
-                //this->dadosSalvos é o que vai entrar nas funçoes que precisam de um intervalo de dados escolhido pelo usuario
-            }
-
         }
         else
         {
@@ -126,14 +120,6 @@ void SensorCorrente::imprimeDados()
         //podendo ser somado ou subtraido, neste caso ele vai ir do primeiro endereço de memoria ao ultimo
         //a vantagem é que podemos usar o it  como uma referencia para cada um dos dados
         //quando definimos uma variavel como o retorno de um metodo, o proprio operador "auto" vai definir o tipo da variavel
-        cout << " Valor: " << it->valor << endl;
-    }
-}
-
-void SensorCorrente::imprimeDadosSalvos()
-{
-    for (auto it = this->dadosSalvos.begin(); it != this->dadosSalvos.end(); ++it)
-    { 
         cout << " Valor: " << it->valor << endl;
     }
 }
@@ -190,3 +176,18 @@ double SensorCorrente::getDado(const int &indice)
     return false;
 }
 
+bool SensorCorrente::getDadosSalvos(const int &indice1, const int &indice2)
+{
+    for (int i = indice1; i <= indice2; i++)
+    {
+        this->dadosSalvos.push_back(this->dados[i]);
+        //this->dadosSalvos é o que vai entrar nas funçoes que precisam de um intervalo de dados escolhido pelo usuario
+    }
+
+    //for (auto it = this->dadosSalvos.begin(); it != this->dadosSalvos.end(); ++it)
+    //{
+    //    cout << " Valor: " << it->valor << endl;
+    //}
+
+    return true;
+}
