@@ -47,15 +47,22 @@ int main()
     
     fooCorrente(corrente1);
     fooCorrente(corrente2);
-    double rms = corrente1.getValorRMSeDadosSalvos(indice1, indice2);
-
-    cout << "valor rms: " << rms;
+    //corrente1.getDadosSalvos(indice1, indice2);
     
     SensorCorrente tensao1("C:\\Users\\melis\\Desktop\\GitDesk\\_trabalho01\\trabalho01\\dados\\SensorTensao1.dat", headersSensores);
     SensorCorrente tensao2("C:\\Users\\melis\\Desktop\\GitDesk\\_trabalho01\\trabalho01\\dados\\SensorTensao2.dat", headersSensores);
     
     fooCorrente(tensao1);
     fooCorrente(tensao2);
+
+    // #################################### RMS E POTENCIA APARENTE #########################
+    double iRMS1 = corrente1.getRMS(indice1, indice2);
+    double vRMS1 = tensao1.getRMS(indice1, indice2);
+    double potAparente = iRMS1*vRMS1;
+
+    cout << "valor de corrente RMS no horario desejado: " << iRMS1 << endl;
+    cout << "valor de tensao RMS no horario desejado: " << vRMS1 << endl;
+    cout << "valor de potencia aparente no horario desejado: " << potAparente << endl;
 
 
     //################################ INTERFACE RESERVATORIO ###############################

@@ -179,14 +179,20 @@ double SensorCorrente::getDado(const int &indice)
     return false;
 }
 
-double SensorCorrente::getValorRMSeDadosSalvos(const int &indice1, const int &indice2)
+double SensorCorrente::getRMS(const int &indice1, const int &indice2)
 {
     for (int i = indice1; i <= indice2; i++)
     {
         this->dadosSalvos.push_back(this->dados[i]);
         //this->dadosSalvos é o que vetor com os dados no intervalo desejado
     }
-    
+
+    for (int i = 0; i <= indice2; i++)
+    {
+        this->dadosRMS.push_back(this->dadosSalvos[i]);
+        //this->dadosSalvos é o que vetor com os dados no intervalo desejado
+    }
+
     double x2=0;									// Vari?vel que armazena o valor RMS e que armazena o valor RMS� (x2 = RMS�)
 	double xo;											// Vari?vel que armazena a amostra a ser descartada
 	double *const bufferCalculo = new double [N];		// Vetor que ir? armazenar os dados de 1 ciclo da onda (Aloca��o din�mica)
@@ -196,7 +202,7 @@ double SensorCorrente::getValorRMSeDadosSalvos(const int &indice1, const int &in
 	for (int i = 0; i < indice2;++i)
 	{
 		xo = *ptr_bufferCalculo;						//Ao inserir uma nova amostra no vetor, retira a amostra mais antiga e armazena-a em xo
-		*ptr_bufferCalculo = (this->dadosSalvos[i].valor)*(this->dadosSalvos[i].valor);					//Armazena o novo valor no vetor (x�)
+		*ptr_bufferCalculo = (this->dadosRMS[i].valor)*(this->dadosRMS[i].valor);					//Armazena o novo valor no vetor (x�)
 		x2 += (*ptr_bufferCalculo - xo)/N;				//Soma a contribui??o
 	}
 

@@ -13,7 +13,7 @@ private:
     vector<Medicao> dados;
     vector<Medicao> dadosSalvos;
     vector<string> headers;
-    vector<double> dadosRMS;
+    vector<Medicao> dadosRMS;
     string nome;
     string id;
     string horarioInicial;
@@ -42,7 +42,7 @@ public:
     virtual string getFreq();
     virtual int getNumAmostrasCiclo();
     virtual double getDado(const int&);
-    virtual double getValorRMSeDadosSalvos(const int&, const int&);
+    virtual double getRMS(const int&, const int&);
 };
 
 #endif
