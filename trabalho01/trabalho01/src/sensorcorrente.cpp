@@ -204,7 +204,18 @@ double SensorCorrente::getRMS(const int &indice1, const int &indice2)
 		xo = *ptr_bufferCalculo;						//Ao inserir uma nova amostra no vetor, retira a amostra mais antiga e armazena-a em xo
 		*ptr_bufferCalculo = (this->dadosRMS[i].valor)*(this->dadosRMS[i].valor);					//Armazena o novo valor no vetor (x�)
 		x2 += (*ptr_bufferCalculo - xo)/N;				//Soma a contribui??o
-	}
+        
+        if(ptr_bufferCalculo < (bufferCalculo+N-1))    //Enquanto o ponteiro apontar para um endere�o que esteja contido no bloco de mem?ria apontado por bufferCalculo
+		{
+			ptr_bufferCalculo++;					   //Incremente o ponteiro do buffer;
+			
+		}
+		else
+		{
+			ptr_bufferCalculo = bufferCalculo;		  // caso contrario, atribua para ptr_bufferCalculo o endere�o do inicial do bloco de mem?ria apontado por bufferCalculo
+			
+		}
+    }
 
 	delete[] bufferCalculo;							  //Desalocando bloco de mem?ria alocado
 	this->rms = sqrt(x2);									  // Calcula a raiz quadrada de RMS� = RMS

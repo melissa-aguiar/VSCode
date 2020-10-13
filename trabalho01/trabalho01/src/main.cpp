@@ -63,14 +63,14 @@ int main()
     //################################ VAZAO E VOLUME (FUNCIONANDO) #############################################
     double volume1 = vazao1.getVolume(indice2);
     double volume2 = 1000 * vazao2.getVolume(indice2);
-    double volumeTotal = volume1 + volume2; //confirmar se é pra somar as duas bombas mesmo ou se é pra subtrair a 1 da 2
+    double volumeTotal = volume1 - volume2; //confirmar se é pra somar as duas bombas mesmo ou se é pra subtrair a 1 da 2
      if (volumeTotal>30000) // volume maximo do reservatorio
         {
             volumeTotal = 30000;
         }
 
-    cout << "Vazao na bomba " << vazao1.getNome() << " neste horario: " << vazao1.getDado(indice2) << vazao1.getUnidade() << endl;
-    cout << "Vazao na bomba " << vazao2.getNome() << " neste horario: " << vazao2.getDado(indice2) << vazao2.getUnidade() << endl;
+    cout << "Vazao na bomba " << vazao1.getNome() << " (entrada) neste horario: " << vazao1.getDado(indice2) << vazao1.getUnidade() << endl;
+    cout << "Vazao na bomba " << vazao2.getNome() << " (saida) neste horario: " << vazao2.getDado(indice2) << vazao2.getUnidade() << endl;
     cout << "Volume no reservatorio neste horario: " << volumeTotal << " litros." << endl;
     
     //################################ INTERFACE RESERVATORIO (CONVERTE A HORA NO INDICE DO DADO DESEJADO) ###############################
