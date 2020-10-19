@@ -34,7 +34,7 @@ int main()
     //###################################### CORRENTE E TENSAO ##################################
 
     int indice1 = 0;
-    int indice2 = 20;
+    int indice2 = 385;
 
     vector<string> headersSensores = {"Nome do Sensor", "ID do sensor", "Frequencia da rede", "Numero de amostras por segundo", "Horario inicio da coleta", "Total de Amostras"};
     
