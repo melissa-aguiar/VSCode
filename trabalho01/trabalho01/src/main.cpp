@@ -32,10 +32,6 @@ int main()
     fooVazao(vazao2);
 
     //###################################### CORRENTE E TENSAO ##################################
-
-    int indice1 = 0;
-    int indice2 = 385;
-
     vector<string> headersSensores = {"Nome do Sensor", "ID do sensor", "Frequencia da rede", "Numero de amostras por segundo", "Horario inicio da coleta", "Total de Amostras"};
     
     SensorCorrente corrente1("C:\\Users\\melis\\Desktop\\GitDesk\\_trabalho01\\trabalho01\\dados\\SensorCorrente1.dat", headersSensores);
@@ -51,8 +47,13 @@ int main()
     fooCorrente(tensao2);
 
     // #################################### CALCULO DE RMS E POTENCIA APARENTE (FUNCIONANDO) #########################
-    double iRMS1 = corrente1.getRMS(indice1, indice2);
-    double vRMS1 = tensao1.getRMS(indice1, indice2);
+
+    int indice1 = 0;
+    int indice2 = 385;
+
+
+    double iRMS1 = corrente1.getRMS(indice2);
+    double vRMS1 = tensao1.getRMS(indice2);
     double potAparente = iRMS1*vRMS1;
 
     cout << "valor de corrente RMS no sensor " << corrente1.getNome() << " no horario desejado: " << iRMS1 << endl;
