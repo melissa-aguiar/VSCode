@@ -59,6 +59,15 @@ int main()
     cout << "valor de corrente RMS no sensor " << corrente1.getNome() << " no horario desejado: " << iRMS1 << endl;
     cout << "valor de tensao RMS no sensor " << tensao1.getNome() << "  no horario desejado: " << vRMS1 << endl;
     cout << "valor de potencia aparente no horario desejado: " << potAparente << endl;
+    
+    /////////////////////////////calculo da potencia ativa e fator de potencia funcionando////////
+    
+    int N1=corrente1.getNumAmostrasCiclo();
+    int T1=corrente1.getPeriodoAmostragem();
+    double potAt=calcPot(N1,indice2,T1);
+    cout << "valor da potencia ativa no sensor " << corrente1.getNome() << " no horario desejado: " << potAt << endl;
+    double fatPot=potAt/potAparente;
+    cout << "valor do fator de potencia no sensor " << corrente1.getNome() << " no horario desejado: " << fatPot << endl;
 
 
     //################################ VAZAO E VOLUME (FUNCIONANDO) #############################################
