@@ -3,8 +3,7 @@
 #include"sensorcorrente.h"
 
 
-double calcPot(double *,double*, int , int);
-double calcPotAparente(double* ,double *,int ,int);
-double fatorPotencia(double *,double *,int ,int );
+double calcPot( int , int,int);
+
 
 #endif 
