@@ -4,20 +4,16 @@
 
 #include "sensoreletrico.h"
 
-class Bomba : public Sensor
+class Bomba
 {
-    private:
-        
+    public:
         SensorEletrico& corrente;
         SensorEletrico& tensao;
-        
-
-    public:
         Bomba(SensorEletrico& corrente, SensorEletrico& tensao);
-        double calcEnergia(Bomba& bomba,const int &indice2);
-        double calcPot( Bomba& bomba,const int &indice2);
-        double calcPotAparente(Bomba& bomba,const int &indice2);
-        double CalculaFP(); //fator de potencia
+        double calcEnergia(const int& indice1, const int& indice2);
+        double calcPot( const int &indice2);
+        double calcPotAparente(const int &indice2);
+        double CalculaFP(int indice2); //fator de potencia
         double getRMS(Sensor& s,const int&);
 };
 

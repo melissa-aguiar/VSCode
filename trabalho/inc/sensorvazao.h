@@ -9,13 +9,13 @@ using namespace std;
 class SensorVazao: public Sensor
 {
 private:
-    double volume;
+    string unidade;
    
 public:
 
     SensorVazao(const string& path, vector<string>& h);
-    double getVolume(const int&);
     bool lerDados();
+    string getUnidade();
 
 };
 

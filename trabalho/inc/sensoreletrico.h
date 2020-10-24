@@ -6,10 +6,13 @@
 class SensorEletrico : public Sensor
 {
 private:
-double rms;
+    double f;
+    double rms;
+
 vector<Medicao> dadosRMS;
 public:
     SensorEletrico(const string& path, vector<string>& h );
+    double getFreq();
     double getRMS( const int &indice2);
     bool lerDados();
 };

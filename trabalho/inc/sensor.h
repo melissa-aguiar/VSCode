@@ -12,7 +12,7 @@
 
 using namespace std;
 
-class Sensor
+class Sensor 
 {
     protected: 
         vector<Medicao> dados;
@@ -20,11 +20,10 @@ class Sensor
         vector<string> headers;
         string nome;
         string id;
-        string unidade;
+        
         string horarioInicial;
         int numMed;
         int Ts;
-        int f;
         int N;
         int totAmostras;
         ifstream file;
@@ -32,7 +31,6 @@ class Sensor
     
     public:
         Sensor();
-        Sensor(const string&, vector<string>& );
         ~Sensor();
         virtual bool abrirArquivo(const string&);
         virtual bool lerDados();
@@ -41,17 +39,14 @@ class Sensor
         virtual void imprimeHeaders();
         virtual string getNome();
         virtual string getId();
-        virtual string getUnidade();
         virtual string getHorarioInicial();
         virtual int getNumMed();
         virtual int getTotAmostras();
         virtual int getPeriodoAmostragem();
-        virtual double getFreq();
         virtual int getNumAmostrasCiclo();
         virtual double getDado(const int&);
-        virtual double getVolume(const int&);
-        virtual double getRMS(const int&);
-        virtual void interface(Sensor &c1,Sensor &c2,Sensor &v1, Sensor&v2, Sensor &t1, Sensor &t2);
+
+        
 };
 
 #endif

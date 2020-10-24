@@ -5,7 +5,7 @@ Bomba::Bomba(SensorEletrico& c,SensorEletrico& t ) : corrente(c),tensao(t)
 {
 }
 
-double Bomba:: calcPotAparente(Bomba& bomba,const int &indice2 )
+double Bomba:: calcPotAparente(const int &indice2 )
    {
     double iRMS1 = this->corrente.getRMS(indice2);
     double vRMS1 = this->tensao.getRMS(indice2);
@@ -13,14 +13,14 @@ double Bomba:: calcPotAparente(Bomba& bomba,const int &indice2 )
     return potAparente;
    }
 
-   double Bomba:: calcPot( Bomba& bomba,const int& indice2) //dados da corrente//dados da tensao//numero de amostras por ciclo//numero total de amostras
+   double Bomba:: calcPot(const int& indice2) //dados da corrente//dados da tensao//numero de amostras por ciclo//numero total de amostras
 {  
    double Energia = 0;
    
    double pot1=0;    //variavel que armazena a potencia
    double pot0;      //variavel que armazena a potencia a ser descartada
-   int Ts = corrente.getPeriodoAmostragem();
-   int N = corrente.getNumAmostrasCiclo();
+   int Ts = this->corrente.getPeriodoAmostragem();
+   int N = this->corrente.getNumAmostrasCiclo();
 
    int cont=Ts*indice2;
    double i,v;
@@ -54,12 +54,18 @@ double Bomba:: calcPotAparente(Bomba& bomba,const int &indice2 )
 
 }
 
-double Bomba::calcEnergia(Bomba& bomba,const int& indice2)
+double Bomba::calcEnergia(const int& indice1, const int& indice2)
 {
     double Energia = 0;
-    for (int i=1; i <= indice2; i++){    //Calcula a energia de 0 ao indice 2 fazendo o somatório das potencias
-            Energia += calcPot(bomba,i)/3600000;
+    for (int i=indice1; i <= indice2; i++){    //Calcula a energia de 0 ao indice 2 fazendo o somatório das potencias
+            Energia += calcPot(i)/3600000;
     }
 
     return Energia;
+}
+
+double Bomba::CalculaFP (int indice2)
+{
+    double fp = calcPot(indice2)/calcPotAparente(indice2);
+    return fp;
 }

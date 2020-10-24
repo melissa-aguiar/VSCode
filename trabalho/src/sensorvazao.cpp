@@ -4,20 +4,17 @@ using namespace std;
 
 SensorVazao::SensorVazao(const string& path, vector<string>& h)
 {
-
-    this->volume = 0;
+    this->unidade = "un";
     this->headers.assign(h.begin(), h.end());
     abrirArquivo(path);
 }
 
-double SensorVazao::getVolume(const int &indice)
+string SensorVazao::getUnidade()
 {
-    for (int i = 0; i <= indice; i++)
-    {
-        this->volume = this->volume + dados[i].valor;
-    }
-    return this->volume;
+    return this->unidade;
 }
+
+
 
 bool SensorVazao::lerDados()
 {
