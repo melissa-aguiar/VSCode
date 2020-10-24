@@ -1,25 +1,48 @@
-#include "sensorvazao.h"
+#include "sensoreletrico.h"
 
-using namespace std;
-
-SensorVazao::SensorVazao(const string& path, vector<string>& h)
+SensorEletrico::SensorEletrico(const string& path, vector<string>& h)
 {
-
-    this->volume = 0;
+    this->rms=0;
     this->headers.assign(h.begin(), h.end());
     abrirArquivo(path);
+    
 }
 
-double SensorVazao::getVolume(const int &indice)
+double SensorEletrico::getRMS(const int &indice2)
 {
-    for (int i = 0; i <= indice; i++)
-    {
-        this->volume = this->volume + dados[i].valor;
+    int Ts = this->getPeriodoAmostragem();
+    int N = this->getNumAmostrasCiclo();
+    int cont = indice2 * Ts;
+    double x2=0;									// Vari?vel que armazena o valor RMS e que armazena o valor RMS� (x2 = RMS�)
+	double rms, xo;											// Vari?vel que armazena a amostra a ser descartada
+	double *const bufferCalculo = new double [N];		// Vetor que ir? armazenar os dados de 1 ciclo da onda (Aloca��o din�mica)
+	double *ptr_bufferCalculo = bufferCalculo;			// ponteiro que ser? utilizado para varrer os dados
+	memset(bufferCalculo, 0 , N*sizeof(double));		// Limpa os valores do vetor
+	
+	for (int i = 0; i < cont; ++i)
+	{
+		xo = *ptr_bufferCalculo;						//Ao inserir uma nova amostra no vetor, retira a amostra mais antiga e armazena-a em xo
+		*ptr_bufferCalculo = (this->getDado(i))*(this->getDado(i));		//Armazena o novo valor no vetor (x�)
+		x2 += (*ptr_bufferCalculo - xo)/N;				//Soma a contribui??o
+        
+        if(ptr_bufferCalculo < (bufferCalculo+(N-1)))  //Enquanto o ponteiro apontar para um endere�o que esteja contido no bloco de mem?ria apontado por bufferCalculo
+		{
+			ptr_bufferCalculo++;	//Incremente o ponteiro do buffer;
+		}
+		else
+		{
+			ptr_bufferCalculo = bufferCalculo;// caso contrario, atribua para ptr_bufferCalculo o endereço do inicial do bloco de mem?ria apontado por bufferCalculo
+		}
     }
-    return this->volume;
+
+	delete[] bufferCalculo;	     //Desalocando bloco de mem?ria alocado
+	rms = sqrt(x2);				// Calcula a raiz quadrada
+
+return rms;
 }
 
-bool SensorVazao::lerDados()
+
+bool SensorEletrico::lerDados()
 {
     try
     {
@@ -49,10 +72,10 @@ bool SensorVazao::lerDados()
             this->nome = dadosHeader[0];
             this->id = dadosHeader[1];
             this->numMed = stod(dadosHeader[5]); //stod converte string em double
-            this->unidade = dadosHeader[2];
+            this->f = stod(dadosHeader[2]);
             this->horarioInicial = dadosHeader[4];
             this->Ts = (int)stod(dadosHeader[3]);
-            this->N = this->Ts;
+            this->N = (this->Ts) / (this->f);
             Medicao m, ms;
             getline(file, d);
 
@@ -75,4 +98,3 @@ bool SensorVazao::lerDados()
     }
     return true;
 }
-

@@ -1,8 +1,6 @@
 #ifndef SENSOR_VAZAO_H
 #define SENSOR_VAZAO_H
-#include <vector>
-#include <fstream>
-#include "medicao.h"
+
 #include "sensor.h"
 
 
@@ -14,8 +12,10 @@ private:
     double volume;
    
 public:
-    SensorVazao(const string&, vector<string>&);
+
+    SensorVazao(const string& path, vector<string>& h);
     double getVolume(const int&);
+    bool lerDados();
 
 };
 

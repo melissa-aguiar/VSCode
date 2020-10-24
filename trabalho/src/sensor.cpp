@@ -5,18 +5,18 @@ Sensor::Sensor()
 {
     this->nome = "desconhecido";
     this->id = "desconhecido";
-    this->f = "desconhecida";
     this->horarioInicial = "desconhecido";
+    this->f = 0;
     this->numMed = 0;
     this->Ts = 0;
-    this->N = 600 / 60;
     this->totAmostras = 0;
     this->unidade = "un";
-    //this->headers.assign(h.begin(), h.end());
-    //assign copia os dados de um vetor pro outro no intervalo desejado, neste caso copia h todo
- 
-}
 
+}
+Sensor::Sensor(const string& path, vector<string>& h)
+{
+
+}
 Sensor::~Sensor()
 {
     this->file.close();
@@ -65,7 +65,6 @@ bool Sensor::lerDados()
             //apos coletados os dados, preenchemos os atributos da classe
             this->nome = dadosHeader[0];
             this->id = dadosHeader[1];
-            this->f = dadosHeader[2];
             this->numMed = stod(dadosHeader[5]); //stod converte string em double
             this->horarioInicial = dadosHeader[4];
             this->Ts = (int)stod(dadosHeader[3]);
@@ -153,7 +152,7 @@ int Sensor::getTotAmostras()
     return this->totAmostras;
 }
 
-string Sensor::getFreq()
+double Sensor::getFreq()
 {
     return this->f;
 }
@@ -183,9 +182,12 @@ double Sensor::getDado(const int &indice)
 void Sensor::interface(Sensor &c1,Sensor &c2,Sensor &v1, Sensor &v2, Sensor &t1, Sensor &t2)
 {
     int x,v,op,hora, min, seg,indice,indice2;
-    int indice1 = 0;
+    int indice1 = 0,k=1;
     double volume1, volume2, vTotal;
     string h;
+
+    while(k=1)
+{
     std::cout<< "Bem vindo(a)!" <<endl;
     std::cout<< "Selecione a operacao desejada : \n 1 - Vazao de entrada e/ou de saida do tanque.\n 2-Volume do reservatorio \n 3: Nome de um sensor \n 4- ID de um sensor \n 5- Valor RMS de um sensor (corrente ou tensao) \n 6-Potencia de determinada bomba \n 7-Potencia aparente de determinada bomba \n 8-Fator de potencia de uma determinada bomba \n 9-Energia consumida por uma determinada bomba" <<endl;
     cin>>x;
@@ -195,6 +197,7 @@ void Sensor::interface(Sensor &c1,Sensor &c2,Sensor &v1, Sensor &v2, Sensor &t1,
     c2.lerDados();
     t1.lerDados();
     t2.lerDados();
+
 
     switch(x)
     {
@@ -218,6 +221,10 @@ void Sensor::interface(Sensor &c1,Sensor &c2,Sensor &v1, Sensor &v2, Sensor &t1,
                 cout<<"Vazao de entrada neste horario : " <<v1.getDado(indice2)<<v1.getUnidade()<<endl;
                 cout<<"1 - Voltar para o menu      2- Sair"<<endl;
                 cin>>op;
+                if(op==2)
+                {
+                    k=0;
+                }
             }
             else if (v==2)
             {
@@ -421,15 +428,13 @@ void Sensor::interface(Sensor &c1,Sensor &c2,Sensor &v1, Sensor &v2, Sensor &t1,
                     cout<<"Valor RMS : "<<t2.getRMS(indice2) << " V "<<"\n 1- Voltar ao menu     2- Sair"<<endl;
                 }
             }
+        //case 5 :
 
-
-
-
-
-
+        break;
         }
 
     }
+}
 double Sensor::getVolume(const int&)
 {};
 double Sensor:: getRMS(const int&)

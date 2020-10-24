@@ -1,29 +1,24 @@
 #ifndef BOMBA_H
 #define BOMBA_H
 
-#include <vector>
-#include "medicao.h"
-#include <fstream>
-#include <iostream>
-#include <string.h>
-#include<math.h>
-#include <cstring>
-#include "sensor.h"
+
+#include "sensoreletrico.h"
 
 class Bomba : public Sensor
 {
     private:
-        vector<Medicao> dadosRMS;
-        double rms;
-
+        
+        SensorEletrico& corrente;
+        SensorEletrico& tensao;
+        
 
     public:
-        Bomba(const string&, vector<string> &);
-        double CalculaPotencia();
-        double CalculaPotenciaAparente();
+        Bomba(SensorEletrico& corrente, SensorEletrico& tensao);
+        double calcEnergia(Bomba& bomba,const int &indice2);
+        double calcPot( Bomba& bomba,const int &indice2);
+        double calcPotAparente(Bomba& bomba,const int &indice2);
         double CalculaFP(); //fator de potencia
-        double CalculaEnergiaConsumida();
-        double getRMS(const int&);
+        double getRMS(Sensor& s,const int&);
 };
 
 #endif

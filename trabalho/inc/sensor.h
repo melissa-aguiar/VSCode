@@ -6,6 +6,9 @@
 #include <vector>
 #include <fstream>
 #include <iostream>
+#include <fstream>
+#include<math.h>
+#include <cstring>
 
 using namespace std;
 
@@ -21,7 +24,7 @@ class Sensor
         string horarioInicial;
         int numMed;
         int Ts;
-        string f;
+        int f;
         int N;
         int totAmostras;
         ifstream file;
@@ -29,6 +32,7 @@ class Sensor
     
     public:
         Sensor();
+        Sensor(const string&, vector<string>& );
         ~Sensor();
         virtual bool abrirArquivo(const string&);
         virtual bool lerDados();
@@ -42,12 +46,12 @@ class Sensor
         virtual int getNumMed();
         virtual int getTotAmostras();
         virtual int getPeriodoAmostragem();
-        virtual string getFreq();
+        virtual double getFreq();
         virtual int getNumAmostrasCiclo();
         virtual double getDado(const int&);
         virtual double getVolume(const int&);
         virtual double getRMS(const int&);
-        virtual void interface(Sensor &c1,Sensor &c2,Sensor &v1, Sensor &v2, Sensor &t1, Sensor &t2);
+        virtual void interface(Sensor &c1,Sensor &c2,Sensor &v1, Sensor&v2, Sensor &t1, Sensor &t2);
 };
 
 #endif
