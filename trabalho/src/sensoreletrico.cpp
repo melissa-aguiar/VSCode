@@ -88,6 +88,7 @@ bool SensorEletrico::lerDados()
                 m.valor = stod(d);
                 this->dados.push_back(m);
             }
+        return true;
         }
         else
         {

@@ -7,12 +7,6 @@
 using namespace std;
 
 
-void fooSensor(Sensor &s)
-{
-    s.lerDados();
-    s.confirmaLeitura();
-}
-
 int main()
 {
 
@@ -39,7 +33,7 @@ int main()
     //################################### INTERFACE ######################################
 
     PlantaIndustrial(bomba1,bomba2,r1);
-
+ 
 
     return 0;
 }
