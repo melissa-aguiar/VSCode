@@ -422,7 +422,6 @@ PlantaIndustrial::PlantaIndustrial(Bomba &b1, Bomba &b2, Reservatorio &r1)
         case 7:
             system("cls");
             cout << "Escolha a bomba: \n 1-Bomba 1 \n 2- Bomba2" << endl;
-            cout << "Escolha a bomba: \n 1-Bomba 1 \n 2- Bomba2" << endl;
             cin >> op;
             if (op == 1)
             {
@@ -530,7 +529,7 @@ PlantaIndustrial::PlantaIndustrial(Bomba &b1, Bomba &b2, Reservatorio &r1)
                 indice = indice - 65335; //65335 é a hora inicial em segundos, quando subtrai isso da hora desejada obtem o indice
                 indice1 = indice;
 
-                cout << "Digite o horario de término do intervalo no formato hh:mm:ss : " << endl;
+                cout << "Digite o horario de termino do intervalo no formato hh:mm:ss : " << endl;
                 cin >> h;
                 hora = (int)stod(h.substr(0, 2));
                 min = (int)stod(h.substr(3, 2));
