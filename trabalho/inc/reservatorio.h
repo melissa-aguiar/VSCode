@@ -2,7 +2,7 @@
 #define RESERVATORIO_H
 #include "sensorvazao.h"
 
-class Reservatorio: public Sensor
+class Reservatorio
 {
 private : 
     double volume;

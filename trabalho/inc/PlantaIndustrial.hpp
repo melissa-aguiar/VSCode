@@ -47,7 +47,7 @@ PlantaIndustrial::PlantaIndustrial(Bomba &b1, Bomba &b2, Reservatorio &r1)
                 seg = (int)stod(h.substr(6, 2));
 
                 indice = hora * 3600 + min * 60 + seg;
-                indice = indice - 65335; //65335 é a hora inicial em segundos, quando subtrai isso da hora desejada obtem o indice
+                indice = indice - 65335; 
                 indice2 = indice;
                 system("cls");
                 cout << "Vazao de entrada neste horario : " << r1.v1.getDado(indice2) << r1.v1.getUnidade() << endl;
@@ -69,8 +69,7 @@ PlantaIndustrial::PlantaIndustrial(Bomba &b1, Bomba &b2, Reservatorio &r1)
                 seg = (int)stod(h.substr(6, 2));
 
                 indice = hora * 3600 + min * 60 + seg;
-                indice = indice - 65335; //65335 é a hora inicial em segundos, quando subtrai isso da hora desejada obtem o indice
-                indice2 = indice;
+                indice = indice - 65335; 
                 system("cls");
                 cout << "Vazao de saida neste horario : " << r1.v2.getDado(indice2) << r1.v2.getUnidade() << endl;
 
@@ -93,7 +92,7 @@ PlantaIndustrial::PlantaIndustrial(Bomba &b1, Bomba &b2, Reservatorio &r1)
             seg = (int)stod(h.substr(6, 2));
 
             indice = hora * 3600 + min * 60 + seg;
-            indice = indice - 65335; //65335 é a hora inicial em segundos, quando subtrai isso da hora desejada obtem o indice
+            indice = indice - 65335; 
             indice2 = indice;
             system("cls");
             cout << "Volume no reservatorio neste horario: " << r1.getVolume(indice2) << " litros." << endl;
@@ -421,7 +420,6 @@ PlantaIndustrial::PlantaIndustrial(Bomba &b1, Bomba &b2, Reservatorio &r1)
             break;
         case 7:
             system("cls");
-            cout << "Escolha a bomba: \n 1-Bomba 1 \n 2- Bomba2" << endl;
             cout << "Escolha a bomba: \n 1-Bomba 1 \n 2- Bomba2" << endl;
             cin >> op;
             if (op == 1)

@@ -42,7 +42,7 @@ class Sensor
         virtual string getHorarioInicial();
         virtual int getNumMed();
         virtual int getTotAmostras();
-        virtual int getPeriodoAmostragem();
+        virtual int getTaxaAmostragem();
         virtual int getNumAmostrasCiclo();
         virtual double getDado(const int&);
 
